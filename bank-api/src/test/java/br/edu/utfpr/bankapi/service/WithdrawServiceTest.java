@@ -40,7 +40,7 @@ public class WithdrawServiceTest {
         // ARRANGE
         double saldoInicial = 2000.00;
         var withdrawDTO = new WithdrawDTO(12345, 1000);
-        var sourceAccount = new Account("John Smith", 12345, saldoInicial, 0);
+        var sourceAccount = new Account("Jacinto Paulo", 12345, saldoInicial, 0);
 
         BDDMockito.given(accountValidation.validate(withdrawDTO.sourceAccountNumber()))
                 .willReturn(sourceAccount);
@@ -75,7 +75,7 @@ public class WithdrawServiceTest {
     @Test
     void deveriaLancarExcecaoQuandoSaldoInsuficienteParaSaque() throws NotFoundException {
         var withdrawDTO = new WithdrawDTO(12345, 1000);
-        var sourceAccount = new Account("John Smith", 12345, 500, 0);
+        var sourceAccount = new Account("Jacinto Paulo", 12345, 500, 0);
 
         BDDMockito.given(accountValidation.validate(withdrawDTO.sourceAccountNumber()))
                 .willReturn(sourceAccount);

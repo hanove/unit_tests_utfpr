@@ -39,4 +39,32 @@ public class AvaliableAccountValiadationTest {
         Assertions.assertDoesNotThrow(() -> validation.validate(number));
         // não ocorra uma exception...
     }
+
+    @Test
+    void deveriaLancarNotFoundExceptionParaContaInexistente() {
+        // ARRANGE
+        long number = 12345;
+
+        // Simulando o comportamento do Repositorio (AccountRepository)
+        BDDMockito
+                .given(accountRepository.getByNumber(number))
+                .willReturn(Optional.empty());
+
+        // ACT + ASSERT
+        Assertions.assertThrows(NotFoundException.class, () -> validation.validate(number));
+    }
+
+    @Test
+    void deveriaLancarNotFoundExceptionParaNumeroDeContaInvalido() {
+        // ARRANGE
+        long invalidNumber = -1;
+
+        // Simulando o comportamento do Repositorio (AccountRepository)
+        BDDMockito
+                .given(accountRepository.getByNumber(invalidNumber))
+                .willReturn(Optional.empty());
+
+        // ACT + ASSERT
+        Assertions.assertThrows(NotFoundException.class, () -> validation.validate(invalidNumber));
+    }
 }
